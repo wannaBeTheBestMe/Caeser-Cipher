@@ -1,0 +1,101 @@
+<FloatLayout@Widget>:
+    canvas:
+        Color:
+            rgba: 0.29411764705882354, 0.611764705882353, 0.8274509803921568, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<Button>:
+    font_size: 20
+    color: 222/255, 49/255, 98/255, 1
+    background_color: 0, 0, 0, 1
+
+<Label>:
+    font_size: 20
+    color: 222/255, 49/255, 98/255, 1
+    background_color: 1, 1, 1, 1
+
+<TextInput>:
+    background_color: 34/255, 32/255, 33/255, .8
+    text_color: 1, 1, 1, 1
+    padding_x: 30
+    padding_y: 15
+
+<FloatLayout>:
+    encode: encode
+    decode: decode
+    shift: shift
+    input: input
+    output: output
+    decoder_without_shift: decoder_without_shift
+    BoxLayout:
+        size_hint: None, None
+        size: 200, 100
+        center: root.center
+
+        GridLayout:
+            cols: 2
+            Button:
+                id: encode
+                text: "Encode"
+                on_press: self.background_color = (34/255, 32/255, 33/255, .8)
+                on_press: decode.background_color = (1, 1, 1, 1)
+                on_press: decoder_without_shift.background_color = (1, 1, 1, 1)
+                #background_color: 34/255, 32/255, 33/255, .5
+                on_press: app.encoder()
+            Button:
+                id: decode
+                text: "Decode"
+                on_press: self.background_color = (34/255, 32/255, 33/255, .8)
+                on_press: encode.background_color = (1, 1, 1, 1)
+                on_press: decoder_without_shift.background_color = (1, 1, 1, 1)
+                #background_color: 34/255, 32/255, 33/255, .5
+                on_press: app.decoder()
+            Button:
+                text: "Shift"
+                font_size: 20
+
+            TextInput:
+                id: shift
+                input_filter: 'int'
+                font_size: 20
+                text: app.shift
+    Button:
+        id: decoder_without_shift
+        size_hint: None, None
+        size: 200, 50
+        pos_hint: {"x": 0.375, "top": 0.4}
+        text: "Decode without shift"
+        on_press: self.background_color = (34/255, 32/255, 33/255, .8)
+        on_press: encode.background_color = (1, 1, 1, 1)
+        on_press: decode.background_color = (1, 1, 1, 1)
+        #background_color: 34/255, 32/255, 33/255, .5
+        on_press: app.decoder_without_shift()
+
+    Label:
+        center: root.center
+        text: "Plain text"
+        font_size: 40
+        pos_hint: {"x": -.35, "y": 0.2}
+    Label:
+        center: root.center
+        text: "Cipher text"
+        font_size: 40
+        pos_hint: {"x": .32, "y": 0.2}
+
+    TextInput:
+        id: input
+        background_color: 34/255, 32/255, 33/255, .3
+        center: root.center
+        text: app.input
+        size_hint: 0.26, 0.26
+        pos_hint: {"x": 0.04, "y": 0.37}
+
+    TextInput:
+        id: output
+        background_color: 34/255, 32/255, 33/255, .3
+        center: root.center
+        text: app.output
+        size_hint: 0.26, 0.26
+        pos_hint: {"x": 0.7, "y": 0.37}
